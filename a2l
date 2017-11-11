@@ -1,0 +1,10 @@
+#!/bin/bash
+
+while IFS='' read -r line || [[ -n "$line" ]]; do
+	if [[ $line == *"libwebviewuc.so"* ]]; then
+	  echo $line
+	  echo $line | awk -F " " '{print $4}' | arm-linux-androideabi-addr2line -aipfC -e $2
+	else
+	  echo $line
+	fi
+done < "$1"
